@@ -1,7 +1,7 @@
-import { ExclamationCircleFilled } from '@ant-design/icons';
-import React, {craeteContext, useState, useEffect} from 'react';
+// import { ExclamationCircleFilled } from '@ant-design/icons';
+import React, {craeteContext, useState, useEffect, createContext} from 'react';
 
-const UserContext = createContext();   
+export const UserContext = createContext() ;
 
 const himindu = {
    name : 'Himindu Kularathne',

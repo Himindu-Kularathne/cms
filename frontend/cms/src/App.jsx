@@ -4,7 +4,11 @@ import { useState, useContext } from 'react'
 import './App.css';
 import LoginPage from './Pages/Login';
 import Home from './pages/Home';
-import 
+import AddContactForm from './Compoenets/AddNewContacts'
+import { MenuButtonContext } from './context/MenuButtonContext';
+import Settings from './Compoenets/Settings';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
 
 function App() {
   // const [count, setCount] = useState(0)
@@ -19,7 +23,7 @@ function App() {
       case '1':
         return <Home />
       case '2':
-        return <Contacts  />
+        return <Contacts />
       case '3':
         return <AddContactForm />
       case '4':
@@ -47,5 +51,6 @@ function App() {
       
   )
 }
+import Contacts from './Pages/Contacts';
 
 export default App
