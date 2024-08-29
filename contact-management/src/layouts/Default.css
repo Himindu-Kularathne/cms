@@ -1,0 +1,17 @@
+.layout-container {
+      display: flex;
+      flex-direction: row;
+     
+
+
+}
+
+.content {
+      display: flex;
+      flex-direction: column;
+    
+      background-color: #fff;
+      width: 100%;
+   
+      transition: all 0.3s;
+}
