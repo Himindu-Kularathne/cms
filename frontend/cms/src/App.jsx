@@ -1,18 +1,11 @@
 import { useState, useContext } from 'react'
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import './App.css'
-
+import './App.css';
 import LoginPage from './Pages/Login';
-// import MenuPage from './Pages/Menu';
-import Navbar from './Compoenets/NavBar';
-import Contacts from './Pages/Contacts';
-import {createBrowserRouter , RouterProvider } from 'react-router-dom'
-import Home from './Pages/Home';
-import { MenuButtonContext } from './context/MenuButtonContext';
+import Home from './pages/Home';
+import 
 
-import Settings from './Compoenets/Settings';
-import AddContactForm from './Compoenets/AddNewContacts';
 function App() {
   // const [count, setCount] = useState(0)
   const {selectedKey} = useContext(MenuButtonContext);
@@ -26,7 +19,7 @@ function App() {
       case '1':
         return <Home />
       case '2':
-        return <Contacts />
+        return <Contacts  />
       case '3':
         return <AddContactForm />
       case '4':
