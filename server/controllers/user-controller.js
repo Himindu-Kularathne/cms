@@ -4,7 +4,7 @@ const asyncHandler = require('express-async-handler');
 
 
 const getAllUsers = asyncHandler(async (req, res) => {
-    const sql = "SELECT * FROM users";
+    const sql = "SELECT * FROM user";
     db.query(sql, (err, result) => {
         if (err) {
             res.status(400).json({
@@ -22,14 +22,14 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 const getUser = asyncHandler(async (req, res) => {
     const userid = req.params.id;
-    db.query("SELECT * FROM users WHERE userid = ?", [userid], (err, result) => {
+    db.query("SELECT * FROM user WHERE id = ?", [userid], (err, result) => {
         if (err) {
             res.status(400).json({
                 message: "error in fetching user"
             })
         } else {
             res.status(200).json(
-                result
+                result[0]
             )
         }
     })
