@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import { Space, Table, Tag } from 'antd';
 import { DefaultLayout } from '../layouts/Default';
 const { Column, ColumnGroup } = Table;
@@ -64,7 +64,7 @@ const Contacts = () => (
       key="action"
       render={(_, record) => (
         <Space size="middle">
-          <a>Invite {record.lastName}</a>
+          
           <a>Delete</a>
         </Space>
       )}
