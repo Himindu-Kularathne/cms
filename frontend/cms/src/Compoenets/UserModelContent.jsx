@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';   
 import { Avatar, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { UserProvider } from '../context/UserContext';
+import { UserContext } from '../context/UserContext';
 
 const UserModelContent = () => {
    const { Title, Paragraph } = Typography
-   const { user } = useContext(UserProvider);
+   const { user } = useContext(UserContext);
+   console.log(user);
    return(
    <div style={{ textAlign: 'center' }}>
           <Avatar
