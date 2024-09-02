@@ -34,12 +34,9 @@ const getContacts = asyncHandler(async (req , res ) => {
                         return contact;
                     })
                 }
-                
-
             )
         }
     });
-
 });
 
 
