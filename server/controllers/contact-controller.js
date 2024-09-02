@@ -53,6 +53,7 @@ const getContact = asyncHandler(async (req,res) => {
                 {
                     message : "error in fetching contact"
 
+
                 }
             )
         }
@@ -71,37 +72,71 @@ const getContact = asyncHandler(async (req,res) => {
 const createContact = asyncHandler(async (req, res) => {
 
     //destructuring the body
-    const {name, tpno, userid} = req.body;
+    const contactArray = req.body.contacts;
+    
     console.log(req.body);
-    if(!name ||  !tpno ) {
-        res.status(400).json(
-            {
-                message : "all fields are mandetory"
-            }
-        );
-        throw new Error("All fields are mandetory")
-
-    }
-    else {
-        db.query("INSERT INTO contacts (name, tpno, userid) VALUES (?, ?, ?)", [name, tpno, userid], (err, result) => {
+    const userID = 1;
+    //looping thorugh the array of contacts and add them to db
+    contactArray.forEach(contact => {
+        const {firstName, lastName, address, email} = contact;
+        //this should be returning the id
+        db.query("INSERT INTO contact (user_id ,first_name, last_name, address, email) VALUES (?, ?, ?, ?, ?)", [userID ,firstName, lastName, address, email], (err, result) => {
+        
+           
             if(err) {
                 res.status(400).json(
                     {
-                        message : "error in adding new contact"
+                        message : err
                     }
                 )
             }
             else {
-                res.status(201).json(
-                    {
-                        message : "new contact is added",
-                        contact : {name, tpno, userid}
-                    }
-                )
+                 //should add phone numbers to the phone table
+                const phoneNumbers = contact.phoneNumbers;
+                const contactID = result.insertId;
+                phoneNumbers.forEach(phone => {
+                    db.query("INSERT INTO phone (contact_id, phone_number) VALUES (?, ?)", [result.insertId, phone], (err, result) => {
+                       
+                        if(err) {
+                            res.status(400).json(
+                                {
+                                    message : "error in adding phone number"
+                                }
+                            )
+                        } else {
+                            //should add tags to the tag table
+                            const tags = contact.tags;
+                            tags.forEach(tag => {
+                                console.log(contactID);
+                                db.query("INSERT INTO tag (contact_id, tag) VALUES (?, ?)", [contactID, tag], (err, result) => {
+                                    console.log(tag);
+                                    if(err) {
+                                        res.status(400).json(
+                                            {
+                                                message : err
+                                            }
+                                        )
+                                    } 
+                                    res.status(201).json(
+                                        {
+                                            message : "Contacts are added",
+                                            body : result
+                                        }
+                                    )
+                                   
+                                });
+                            })
+                        }
+                    })
+                });
+               
             }
         });
-    }
     
+        
+        
+    });
+   
 
   
 });

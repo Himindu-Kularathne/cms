@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Space, Table, Tag, Modal, Form } from 'antd';
+import { Space, Table, Tag, Modal, Form, message } from 'antd';
 import { DefaultLayout } from '../layouts/Default';
 import ContactForm from '../components/ContactForm'; 
 
@@ -10,6 +10,8 @@ const Contacts = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentContact, setCurrentContact] = useState(null);
   const [form] = Form.useForm();
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   const fetchContacts = async () => {
     try {
@@ -40,6 +42,10 @@ const Contacts = () => {
       .then((response) => response.json())
       .then((data) => {
         fetchContacts();
+        messageApi.open({
+          type: 'success',
+          content: 'Contact is deleted successfully',
+        });
       })
       .catch((error) => {
         console.error('Contact delete failed:', error);
@@ -49,7 +55,7 @@ const Contacts = () => {
   const handleEdit = (contact) => {
     setCurrentContact(contact);
     setIsModalVisible(true);
-    form.setFieldsValue(contact); // Set form values with current contact data
+    form.setFieldsValue(contact); 
   };
 
   const handleSendMail = (mail) => {
@@ -58,12 +64,12 @@ const Contacts = () => {
 
   const handleFormSubmit = (values) => {
     console.log('Form submitted:', values);
-    // Handle form submission logic here
     setIsModalVisible(false);
   };
 
   return (
     <DefaultLayout>
+      {contextHolder}
       <Table dataSource={contacts}>
         <ColumnGroup title="Name">
           <Column title="First Name" dataIndex="first_name" key="first_name" />
