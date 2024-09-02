@@ -9,7 +9,6 @@ const AddContactForm = () => {
 
   const onFinish = (values) => {
     console.log("Form Values: ", values);
-    // Handle form submission, e.g., send the data to an API or update state
   };
 
   return (

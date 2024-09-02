@@ -1,13 +1,16 @@
-import { Space, Table, Tag } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Space, Table, Tag, Modal, Form } from 'antd';
 import { DefaultLayout } from '../layouts/Default';
-import { useEffect, useState } from 'react';
+import ContactForm from '../components/ContactForm'; 
 
 const { Column, ColumnGroup } = Table;
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentContact, setCurrentContact] = useState(null);
+  const [form] = Form.useForm();
 
-  // Fetch data from the backend and display it in the table
   const fetchContacts = async () => {
     try {
       const response = await fetch('http://localhost:3001/api/contacts', {
@@ -18,7 +21,6 @@ const Contacts = () => {
       });
       const data = await response.json();
       setContacts(data.contacts);
-      console.log('Contacts fetched:', contacts);
     } catch (error) {
       console.error('Contacts fetch failed:', error);
     }
@@ -37,12 +39,27 @@ const Contacts = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Contact deleted:', data);
         fetchContacts();
       })
       .catch((error) => {
         console.error('Contact delete failed:', error);
       });
+  };
+
+  const handleEdit = (contact) => {
+    setCurrentContact(contact);
+    setIsModalVisible(true);
+    form.setFieldsValue(contact); // Set form values with current contact data
+  };
+
+  const handleSendMail = (mail) => {
+    window.open(`mailto:${mail}`);
+  };
+
+  const handleFormSubmit = (values) => {
+    console.log('Form submitted:', values);
+    // Handle form submission logic here
+    setIsModalVisible(false);
   };
 
   return (
@@ -79,11 +96,22 @@ const Contacts = () => {
           key="action"
           render={(_, record) => (
             <Space size="middle">
+              <a onClick={() => handleEdit(record)}>Edit</a>
+              <a onClick={() => handleSendMail(record.email)}>Send Mail</a>
               <a onClick={() => handleDelete(record.id)}>Delete</a>
             </Space>
           )}
         />
       </Table>
+
+      <Modal
+        title="Edit Contact"
+        visible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        footer={null}
+      >
+        <ContactForm form={form} onFinish={handleFormSubmit} initialValues={currentContact} />
+      </Modal>
     </DefaultLayout>
   );
 };
