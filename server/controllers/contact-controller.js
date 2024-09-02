@@ -140,8 +140,8 @@ const updateContact =  asyncHandler(async (req, res) => {
 //delete contact
 //api/contact/id:1  , delete
 const deleteContact = asyncHandler( async (req, res) => {
-    const id  = req.params.id ;
-    db.query("DELETE FROM contacts WHERE id = ?", [id], (err, result) => {
+    const id  = req.params.contactID ;
+    db.query("DELETE FROM contact WHERE id = ?", [id], (err, result) => {
         if(err) {
             res.status(400).json(
                 {
