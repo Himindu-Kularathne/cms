@@ -21,7 +21,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 
 
 const getUser = asyncHandler(async (req, res) => {
-    const userid = req.params.id;
+    const userid = req.userID;
     db.query("SELECT * FROM user WHERE id = ?", [userid], (err, result) => {
         if (err) {
             res.status(400).json({

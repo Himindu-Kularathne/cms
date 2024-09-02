@@ -10,7 +10,7 @@ export const DefaultLayout = ({ children }) => {
     <div>
       <Navbar />
       <div className = 'layout-container'>
-         <div style={{width: collapsed ? 80 : 256}}>
+         <div style={{width: collapsed ? 80 : 256 , transition: '0.2s'}}>
       <MenuPage />
       </div>
       <div className = 'content'>
