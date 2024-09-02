@@ -2,7 +2,7 @@ import React, { useState ,useContext} from 'react';
 import '../styles/Login.css';
 import { Modal, Form, Input, Button } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import UserForm from '../Compoenets/UserForm';
+import UserForm from '../Components/UserForm';
 import { UserContext } from '../context/UserContext';
 function LoginPage() {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -16,21 +16,21 @@ function LoginPage() {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-    const handledFetchUser = async () => {
-        try {
-            const response = await fetch('http://localhost:3001/api/users/me', {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-            });
-            const data = await response.json();
-            console.log('User fetched:', data);
-            setUser(data);
-        } catch (error) {
-            console.error('User fetch failed:', error);
-        }
-    };
+    // const handledFetchUser = async () => {
+    //     try {
+    //         const response = await fetch('http://localhost:3001/api/users/me', {
+    //             method: 'GET',
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem('token')}`,
+    //             },
+    //         });
+    //         const data = await response.json();
+    //         console.log('User fetched:', data);
+    //         setUser(data);
+    //     } catch (error) {
+    //         console.error('User fetch failed:', error);
+    //     }
+    // };
 
 
     const handleLogin = async (values) => {
@@ -50,8 +50,11 @@ function LoginPage() {
             console.log('Login successful:', data);
             localStorage.setItem('token', data.token);
 
-            handledFetchUser();
-         
+            // handledFetchUser();
+
+            //need to change the user up to this logic
+            setUser(data);
+            
           
         } catch (error) {
             console.error('Login failed:', error);

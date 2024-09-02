@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../Compoenets/NavBar";
+import Navbar from "../Components/NavBar";
 import PropTypes from "prop-types";
 import MenuPage from "../Pages/Menu";
 import './Default.css'

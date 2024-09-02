@@ -4,9 +4,9 @@ import {  useContext, useEffect, useState } from 'react'
 import './App.css';
 import LoginPage from './Pages/Login';
 import Home from './pages/Home';
-import AddContactForm from './Compoenets/AddNewContacts'
+import AddContactForm from './Components/AddNewContacts'
 import { MenuButtonContext } from './context/MenuButtonContext';
-import Settings from './Compoenets/Settings';
+import Settings from './Components/Settings';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import  {UserContext}  from './context/UserContext';
 
