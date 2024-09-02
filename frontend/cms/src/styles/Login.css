@@ -62,7 +62,24 @@
    transition: background-color 0.3s;
 }
 
+/* 
+.signup-button {
+   margin-top: 20px;
+   padding: 15px;
+   background-color: #5c4be8;
+   color: white;
+   font-size: 16px;
+   font-weight: bold;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s;
+} */
 .login-button:hover {
+   background-color: #4a3bce;
+}
+
+.signup-button:hover {
    background-color: #4a3bce;
 }
 

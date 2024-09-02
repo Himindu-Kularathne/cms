@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';   
+import  { useContext } from 'react';   
 import { Avatar, Typography } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { UserContext } from '../context/UserContext';

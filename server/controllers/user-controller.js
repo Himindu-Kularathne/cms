@@ -37,16 +37,31 @@ const getUser = asyncHandler(async (req, res) => {
 
 
 const createUser = asyncHandler(async (req, res) => {
-    const { username, password, tpno } = req.body;
+    const { name, email, phone, password } = req.body;
+    //check if user already exists
+    db.query("SELECT * FROM user WHERE email = ?", [email], async (err, result) => {
+        if (err) {
+            res.status(400).json({
+                message: "error in fetching user. Please try again"
+            })
+        }
+        if (result.length > 0) {
+            res.status(400).json({
+                message: "user already exists"
+            })
+        }
+    });
+
+
 
     const hashedPassword = await bcrypt.hash(password, 10);
     console.log(hashedPassword);
-    if(!username || !password || !tpno){
+    if(!name || !password || !phone || !email) {
         res.status(400).json({
             message: "Please provide all the fields"
         })
     } else {
-    db.query("INSERT INTO users (username, password, tpno) VALUES (?, ?, ?)", [username, hashedPassword, tpno], (err, result) => {
+    db.query("INSERT INTO user (name , email, phone, hashed_password) VALUES (?, ?, ?,?)", [name, email, phone, hashedPassword], (err, result) => {
         if (err) {
             res.status(400).json({
                 message: "error in creating user"

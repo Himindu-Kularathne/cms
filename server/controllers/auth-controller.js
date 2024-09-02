@@ -6,32 +6,45 @@ const jwt = require('jsonwebtoken');
 
 const loginController = asyncHandler(async (req, res) => {
       const { email, password } = req.body;
-      if (!username || !password) {
+      if (!email || !password) {
          res.status(400).json({
                message: "Please provide all the fields"
          })
       } else {
-         db.query("SELECT * FROM user WHERE email = ?", [username], async (err, result) => {
+      
+         db.query("SELECT * FROM user WHERE email = ?", [ email], async (err, result) => {
+            console.log("result");
                if (err) {
                   res.status(400).json({
                      message: "error in fetching user"
                   })
                } else {
+                  console.log(result[0].hashed_password);
                   if (result.length > 0) {
-                     const isMatch = await bcrypt.compare(password, result[0].password);
-                     if (isMatch) {
-                           const token = jwt.sign({ id: result[0].id }, process.env.JWT_SECRET, {
-                              expiresIn: process.env.JWT_EXPIRE
-                           });
-                           res.status(200).json({
-                              message: "login successful",
-                              token: token
-                           })
-                     } else {
+                     bcrypt.compare(password, result[0].hashed_password, (err, isMatch) => {
+                        if (err) {
                            res.status(400).json({
                               message: "Invalid credentials"
                            })
+                        } else {
+                           if (isMatch) {
+                              const token = jwt.sign({ email: result[0].email, id: result[0].id }, process.env.JWT_SECRET, {
+                                 expiresIn: "1h"
+                              });
+                              res.status(200).json({
+                                 message: "Login successful",
+                                 token: token
+                              })
+                           } else {
+                              res.status(400).json({
+                                 message: "Invalid credentials"
+                              })
+                           }
+                        }
                      }
+                     )
+
+                     
                   } else {
                      res.status(400).json({
                            message: "Invalid credentials"
