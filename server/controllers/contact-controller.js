@@ -3,7 +3,8 @@
 
 const asyncHandler = require("express-async-handler");
 const db = require("../config/dbconnection");
-
+const util = require("util");
+const dbQuery = util.promisify(db.query).bind(db);
 //get all contacts controller
 // api/contacts     , get
 const getContacts = asyncHandler(async (req, res) => {
@@ -55,13 +56,12 @@ const getContact = asyncHandler(async (req, res) => {
 
 //create new contact
 //api/contact   , post
-const util = require("util");
-const dbQuery = util.promisify(db.query).bind(db);
+
 
 const createContact = asyncHandler(async (req, res) => {
   try {
     const contactArray = req.body.contacts;
-    const userID = 1;
+    const userID = req.userID ;
 
     for (const contact of contactArray) {
       const { firstName, lastName, address, email, phoneNumbers, tags } = contact;
@@ -81,7 +81,7 @@ const createContact = asyncHandler(async (req, res) => {
       for (const phone of phoneNumbers) {
         await dbQuery(
           "INSERT INTO phone (contact_id, phone_number) VALUES (?, ?)",
-          [contactID, phone]
+          [contactID, phone.phoneNumber]
         );
       }
 

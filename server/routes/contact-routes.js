@@ -4,7 +4,7 @@ const {getContacts, getContact, createContact, updateContact , deleteContact} = 
 const validateToken = require("../middleware/ValidateToken");
 const getTags = require("../middleware/GetTags");
 //get and add all contacts
-router.route("/").post(createContact);
+router.post("/", validateToken, createContact);
 router.get("/", validateToken , getTags, getContacts);
 
 //get specific contact & update contact & delete contact

@@ -22,6 +22,7 @@ const Contacts = () => {
         },
       });
       const data = await response.json();
+      console.log('Contacts fetched:', data);
       setContacts(data.contacts);
     } catch (error) {
       console.error('Contacts fetch failed:', error);
@@ -78,25 +79,29 @@ const Contacts = () => {
         <Column title="Email" dataIndex="email" key="email" />
         <Column title="Address" dataIndex="address" key="address" />
         <Column
-          title="Tags"
-          dataIndex="tags"
-          key="tags"
-          render={(tags) => (
-            <>
-              {tags.map((tag) => {
-                let color = tag.length > 5 ? 'geekblue' : 'green';
-                if (tag === 'loser') {
-                  color = 'volcano';
-                }
-                return (
-                  <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}
-            </>
-          )}
-        />
+  title="Tags"
+  dataIndex="tags"
+  key="tags"
+  render={(tags) => (
+    <>
+      {tags?.map((tag) => {
+        if (tag) {  // Check if tag is not null or undefined
+          let color = tag.length > 5 ? 'geekblue' : 'green';
+          if (tag === 'loser') {
+            color = 'volcano';
+          }
+          return (
+            <Tag color={color} key={tag}>
+              {tag.toUpperCase()}
+            </Tag>
+          );
+        }
+        return null; // Return null if tag is null or undefined
+      })}
+    </>
+  )}
+/>
+
         <Column
           title="Action"
           key="action"
