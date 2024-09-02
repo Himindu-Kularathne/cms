@@ -1,4 +1,4 @@
-import React, { useState ,useContext} from 'react';
+import { useState ,useContext} from 'react';
 import '../styles/Login.css';
 import { Modal, Form, Input, Button } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
@@ -35,6 +35,7 @@ function LoginPage() {
 
     const handleLogin = async (values) => {
          console.log('Received values:', values);
+        
         try {
             const response = await fetch('http://localhost:3001/api/auth/login', {
                 method: 'POST',

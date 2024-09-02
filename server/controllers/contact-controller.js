@@ -9,9 +9,12 @@ const db = require("../config/dbconnection");
 //get all contacts controller
 // api/contacts     , get
 const getContacts = asyncHandler(async (req , res ) => {
-    const userid = req.query.userid;
-    console.log(userid);
-    const sql = "SELECT * FROM contacts where userid = ?";
+    const userid = req.userID;
+   
+    const sql = "SELECT * FROM contact where user_id = ?";
+
+    //tags are fetched from the middleware
+    console.log(req.tags);
 
     db.query(sql, [userid], (err, result) => {
         if(err) {
@@ -23,7 +26,16 @@ const getContacts = asyncHandler(async (req , res ) => {
         }
         else {
             res.status(200).json(
-                result
+                //to the result we add the tags fetched from the middleware , chech id and assign tags to respective conatct
+                {
+                    contacts : result.map(contact => {
+                        const tags = req.tags.filter(tag => tag.contact_id === contact.id);
+                        contact.tags = tags.map(tag => tag.tag);
+                        return contact;
+                    })
+                }
+                
+
             )
         }
     });
