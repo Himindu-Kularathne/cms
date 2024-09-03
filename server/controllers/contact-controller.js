@@ -112,21 +112,11 @@ const createContact = asyncHandler(async (req, res) => {
 //update contact
 //api/contact/id:1  , put
 const updateContact = asyncHandler(async (req, res) => {
-  const id = req.params.id;
-  const { name, tpno } = req.body;
+    const id = req.params.contactID;
+    const { first_name, last_name, email, address, tags , phone } = req.body;
 
   db.query(
-    "UPDATE contacts SET name = ?, tpno = ? WHERE id = ?",
-    [name, tpno, id],
-    (err, result) => {
-      if (err) {
-        res.status(400).json({
-          message: "error in updating contact",
-        });
-      } else {
-        res.status(201).json(result);
-      }
-    }
+    
   );
 });
 

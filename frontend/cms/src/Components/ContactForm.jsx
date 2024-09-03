@@ -17,7 +17,7 @@ const ContactForm = ({ form, onFinish, initialValues }) => {
       style={{ width: "100%" }}
     >
       <Form.Item
-        name="firstName"
+        name="first_name"
         label="First Name"
         rules={[{ required: true, message: "Please enter your first name" }]}
       >
@@ -25,7 +25,7 @@ const ContactForm = ({ form, onFinish, initialValues }) => {
       </Form.Item>
 
       <Form.Item
-        name="lastName"
+        name="last_name"
         label="Last Name"
         rules={[{ required: true, message: "Please enter your last name" }]}
       >
