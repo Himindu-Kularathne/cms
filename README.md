@@ -40,5 +40,5 @@ The **Contact Management System** is a web application that allows users to effi
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/contact-management-system.git
-   cd contact-management-system
+   git clone https://github.com/Himindu-Kularathne/cms.git
+  
