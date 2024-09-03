@@ -1,4 +1,4 @@
-import { useState ,useContext} from 'react';
+import { useState ,useContext, useEffect} from 'react';
 import '../styles/Login.css';
 import { Modal, Form, Input, Button, message } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
@@ -8,7 +8,7 @@ function LoginPage() {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [form] = Form.useForm();
     const { setUser } = useContext(UserContext);
-    
+    const [messageApi, contextHolder] = message.useMessage();
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -33,9 +33,17 @@ function LoginPage() {
     //     }
     // };
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setUser({token : token});
+        }
+    }, []);
+    
 
     const handleLogin = async (values) => {
          console.log('Received values:', values);
+         
         
         try {
             const response = await fetch('http://localhost:3001/api/auth/login', {
@@ -50,6 +58,7 @@ function LoginPage() {
             });
             const data = await response.json();
             console.log('Login successful:', data);
+            
             localStorage.setItem('token', data.token);
 
             // handledFetchUser();
@@ -66,6 +75,7 @@ function LoginPage() {
 
     return (
         <div className="login-container">
+             {contextHolder}
             <div className="login-box">
                 <div className="login-left">
                     <h2>LOGIN</h2>

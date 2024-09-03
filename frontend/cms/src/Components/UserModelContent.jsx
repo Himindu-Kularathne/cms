@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Avatar, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { UserContext } from "../context/UserContext";
 
 const UserModelContent = () => {
   const { Title, Paragraph } = Typography;
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   console.log(user);
 
   const handledFetchUser = async () => {
@@ -23,6 +23,11 @@ const UserModelContent = () => {
       console.error("User fetch failed:", error);
     }
   };
+
+  useEffect(() => {
+    handledFetchUser();
+  
+  }, []);
   return (
     <div style={{ textAlign: "center" }}>
       <Avatar

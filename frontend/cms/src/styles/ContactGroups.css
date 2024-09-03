@@ -1,0 +1,26 @@
+body {
+   background-color: #f0f2f5;
+   font-family: 'Roboto', sans-serif;
+ }
+ 
+ .ant-card {
+   transition: transform 0.2s ease-in-out;
+ }
+ 
+ .ant-card:hover {
+   transform: translateY(-5px);
+ }
+ 
+ .ant-modal-header {
+   background-color: #1890ff;
+   color: white;
+ }
+ 
+ .ant-modal-title {
+   color: white;
+ }
+ 
+ .ant-modal-close-x {
+   color: white;
+ }
+ 

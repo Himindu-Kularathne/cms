@@ -28,13 +28,9 @@ const items = [
   {
     key: "4",
     icon: <AppstoreOutlined />,
-    label: "Settings",
+    label: "Groups",
   },
-  {
-    key: "5",
-    icon: <MailOutlined />,
-    label: "Logout",
-  },
+  
 ];
 
 const MenuPage = () => {

@@ -1,11 +1,14 @@
 // src/components/ContactForm.js
 
 import { Form, Input, Select, Button } from 'antd';
+import '../styles/ContactGroups.css';
+import { DefaultLayout } from '../layouts/Default';
 
 const { Option } = Select;
 
 const ContactForm = ({ form, onFinish, initialValues }) => {
   return (
+
     <Form
       form={form}
       layout="vertical"
@@ -68,6 +71,7 @@ const ContactForm = ({ form, onFinish, initialValues }) => {
         </Button>
       </Form.Item>
     </Form>
+    
   );
 };
 

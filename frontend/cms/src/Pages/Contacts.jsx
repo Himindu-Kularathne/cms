@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Space, Table, Tag, Modal, Form, message } from 'antd';
-import { DefaultLayout } from '../layouts/Default';
-import ContactForm from '../components/ContactForm'; 
-
+import React, { useEffect, useState } from "react";
+import { Space, Table, Tag, Modal, Form, message } from "antd";
+import { DefaultLayout } from "../layouts/Default";
+import ContactForm from "../Components/ContactForm";
 const { Column, ColumnGroup } = Table;
 
 const Contacts = () => {
@@ -15,17 +14,17 @@ const Contacts = () => {
 
   const fetchContacts = async () => {
     try {
-      const response = await fetch('http://localhost:3001/api/contacts', {
-        method: 'GET',
+      const response = await fetch("http://localhost:3001/api/contacts", {
+        method: "GET",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       const data = await response.json();
-      console.log('Contacts fetched:', data);
+      console.log("Contacts fetched:", data);
       setContacts(data.contacts);
     } catch (error) {
-      console.error('Contacts fetch failed:', error);
+      console.error("Contacts fetch failed:", error);
     }
   };
 
@@ -35,28 +34,28 @@ const Contacts = () => {
 
   const handleDelete = (id) => {
     fetch(`http://localhost:3001/api/contacts/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
         fetchContacts();
         messageApi.open({
-          type: 'success',
-          content: 'Contact is deleted successfully',
+          type: "success",
+          content: "Contact is deleted successfully",
         });
       })
       .catch((error) => {
-        console.error('Contact delete failed:', error);
+        console.error("Contact delete failed:", error);
       });
   };
 
   const handleEdit = (contact) => {
     setCurrentContact(contact);
     setIsModalVisible(true);
-    form.setFieldsValue(contact); 
+    form.setFieldsValue(contact);
   };
 
   const handleSendMail = (mail) => {
@@ -64,7 +63,7 @@ const Contacts = () => {
   };
 
   const handleFormSubmit = (values) => {
-    console.log('Form submitted:', values);
+    console.log("Form submitted:", values);
     setIsModalVisible(false);
   };
 
@@ -79,28 +78,29 @@ const Contacts = () => {
         <Column title="Email" dataIndex="email" key="email" />
         <Column title="Address" dataIndex="address" key="address" />
         <Column
-  title="Tags"
-  dataIndex="tags"
-  key="tags"
-  render={(tags) => (
-    <>
-      {tags?.map((tag) => {
-        if (tag) {  // Check if tag is not null or undefined
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        }
-        return null; // Return null if tag is null or undefined
-      })}
-    </>
-  )}
-/>
+          title="Tags"
+          dataIndex="tags"
+          key="tags"
+          render={(tags) => (
+            <>
+              {tags?.map((tag) => {
+                if (tag) {
+                  // Check if tag is not null or undefined
+                  let color = tag.length > 5 ? "geekblue" : "green";
+                  if (tag === "loser") {
+                    color = "volcano";
+                  }
+                  return (
+                    <Tag color={color} key={tag}>
+                      {tag.toUpperCase()}
+                    </Tag>
+                  );
+                }
+                return null; // Return null if tag is null or undefined
+              })}
+            </>
+          )}
+        />
 
         <Column
           title="Action"
@@ -121,7 +121,11 @@ const Contacts = () => {
         onCancel={() => setIsModalVisible(false)}
         footer={null}
       >
-        <ContactForm form={form} onFinish={handleFormSubmit} initialValues={currentContact} />
+        <ContactForm
+          form={form}
+          onFinish={handleFormSubmit}
+          initialValues={currentContact}
+        />
       </Modal>
     </DefaultLayout>
   );

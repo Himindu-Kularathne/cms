@@ -1,71 +1,65 @@
-import {  useContext, useEffect, useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
+import { useContext, useEffect, useState } from 'react';
 import './App.css';
 import LoginPage from './Pages/Login';
 import Home from './pages/Home';
-import AddContactForm from './Components/AddNewContacts'
+import AddContactForm from './Components/AddNewContacts';
 import { MenuButtonContext } from './context/MenuButtonContext';
-import Settings from './Components/Settings';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import  {UserContext}  from './context/UserContext';
+import { UserContext } from './context/UserContext';
+import { message } from 'antd';
+import Contacts from './Pages/Contacts';
+import ContactGroups from './Pages/Goups';
 
 function App() {
-  // const [count, setCount] = useState(0)
-  const {selectedKey} = useContext(MenuButtonContext);
-  console.log(selectedKey);
-  const {user} = useContext(UserContext);
+  const { selectedKey } = useContext(MenuButtonContext);
+  const { user } = useContext(UserContext);
   const [loggedIn, setLoggedIn] = useState(false);
+  
+  const [messageApi, contextHolder] = message.useMessage();
 
-
-  //login
   useEffect(() => {
-    if(user){
+    if (user) {
       setLoggedIn(true);
+      console.log('User fetched:', user);
+      messageApi.open({
+        type: 'success',
+        content: 'User is successfully logged in',
+      });
     } else {
       setLoggedIn(false);
     }
-    console.log({"user" : user});
-  }, [user])
-
-
-  //change the element for home based on the selected key 
+    console.log({ "user": user });
+  }, [user, messageApi]);  // Added messageApi to dependencies to prevent stale closures
 
   const getSelectedElement = (selectedKey) => {
-    
-    switch(selectedKey){
+    switch (selectedKey) {
       case '1':
-        return <Home />
+        return <Home />;
       case '2':
-        return <Contacts />
+        return <Contacts />;
       case '3':
-        return <AddContactForm />
+        return <AddContactForm />;
       case '4':
-        return <Settings />
+        return <ContactGroups />;
       default:
-        return <Home />
+        return <Home />;
     }
-  
-  }
-  const routers = createBrowserRouter(
-    [
-      {
-        path: '/',
-        element: loggedIn? getSelectedElement(selectedKey) : <LoginPage />
-      },
-     
-    ]
-  )
+  };
+
+  const routers = createBrowserRouter([
+    {
+      path: '/',
+      element: loggedIn ? getSelectedElement(selectedKey) : <LoginPage />,
+    },
+  ]);
 
   return (
-    <RouterProvider router={routers} />
-   
-    
+    <RouterProvider router={routers}>
+      <div className="App">
+        {contextHolder}
+      </div>
+    </RouterProvider>
   );
 }
-      
-  
 
-import Contacts from './Pages/Contacts';
-
-export default App
+export default App;
