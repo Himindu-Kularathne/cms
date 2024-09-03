@@ -61,11 +61,6 @@ const ContactGroups = () => {
     handledFetchContacts();
   }, []);
 
-  
-
-
-
-
   const showContacts = (group) => {
     setSelectedGroup(group);
     setIsModalVisible(true);

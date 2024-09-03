@@ -25,11 +25,11 @@ const items = [
     icon: <ContainerOutlined />,
     label: "Add New Contact",
   },
-  {
-    key: "4",
-    icon: <AppstoreOutlined />,
-    label: "Groups",
-  },
+  // {
+  //   key: "4",
+  //   icon: <AppstoreOutlined />,
+  //   label: "Groups",
+  // },
   
 ];
 

@@ -48,6 +48,7 @@ const CreateGroupForm = ({
             placeholder="Select contacts to add"
             style={{ width: '100%', marginBottom: '10px' }}
           >
+            
             {existingContacts.map((contact) => (
               <Option key={contact.id} value={contact.id}>
                 {contact.name} - {contact.phone}
