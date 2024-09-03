@@ -6,12 +6,12 @@ import { DefaultLayout } from '../layouts/Default';
 const { Title } = Typography;
 const { Option } = Select;
 
-const initialContacts = [
-  { id: 1, name: 'John Doe', phone: '123-456-7890' },
-  { id: 2, name: 'Jane Doe', phone: '098-765-4321' },
-  { id: 3, name: 'Alice Smith', phone: '111-222-3333' },
-  { id: 4, name: 'Bob Johnson', phone: '444-555-6666' },
-];
+// const initialContacts = [
+//   { id: 1, name: 'John Doe', phone: '123-456-7890' },
+//   { id: 2, name: 'Jane Doe', phone: '098-765-4321' },
+//   { id: 3, name: 'Alice Smith', phone: '111-222-3333' },
+//   { id: 4, name: 'Bob Johnson', phone: '444-555-6666' },
+// ];
 
 
 

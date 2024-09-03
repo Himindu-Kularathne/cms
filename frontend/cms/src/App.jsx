@@ -12,15 +12,14 @@ import ContactGroups from './Pages/Goups';
 
 function App() {
   const { selectedKey } = useContext(MenuButtonContext);
-  const { user } = useContext(UserContext);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { user , loggedIn, setLoggedIn} = useContext(UserContext);
+  
   
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
     if (user) {
       setLoggedIn(true);
-      console.log('User fetched:', user);
       messageApi.open({
         type: 'success',
         content: 'User is successfully logged in',
@@ -29,7 +28,7 @@ function App() {
       setLoggedIn(false);
     }
     console.log({ "user": user });
-  }, [user, messageApi]);  // Added messageApi to dependencies to prevent stale closures
+  }, [user, messageApi]);  
 
   const getSelectedElement = (selectedKey) => {
     switch (selectedKey) {

@@ -1,4 +1,4 @@
-import { Form, Input, Button, Select, Space, Divider } from "antd";
+import { Form, Input, Button, Select, Space, Divider, message } from "antd";
 import { DefaultLayout } from "../layouts/Default";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 
@@ -6,6 +6,7 @@ const { Option } = Select;
 
 const AddContactForm = () => {
   const [form] = Form.useForm();
+  const [messageApi, contextHolder] = message.useMessage();
 
   const onFinish = (values) => {
 
@@ -22,6 +23,10 @@ const AddContactForm = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log("Contact added successfully:", data);
+        messageApi.open({
+          type: "success",
+          content: "Contact added successfully",
+        });
         form.resetFields();
       })
       .catch((error) => {
@@ -31,6 +36,7 @@ const AddContactForm = () => {
 
   return (
     <DefaultLayout>
+      {contextHolder}
       <Form
         form={form}
         layout="vertical"

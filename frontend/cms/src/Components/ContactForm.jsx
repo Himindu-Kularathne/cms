@@ -1,14 +1,11 @@
-// src/components/ContactForm.js
-
-import { Form, Input, Select, Button } from 'antd';
+import { Form, Input, Select, Button, Space } from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import '../styles/ContactGroups.css';
-import { DefaultLayout } from '../layouts/Default';
 
 const { Option } = Select;
 
 const ContactForm = ({ form, onFinish, initialValues }) => {
   return (
-
     <Form
       form={form}
       layout="vertical"
@@ -51,6 +48,31 @@ const ContactForm = ({ form, onFinish, initialValues }) => {
         <Input placeholder="Email" />
       </Form.Item>
 
+      <Form.List name="phones">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, fieldKey, ...restField }) => (
+              <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                <Form.Item
+                  {...restField}
+                  name={[name]}
+                  fieldKey={[fieldKey]}
+                  rules={[{ required: true, message: 'Please enter a phone number' }]}
+                >
+                  <Input placeholder="Phone Number" />
+                </Form.Item>
+                <MinusCircleOutlined onClick={() => remove(name)} />
+              </Space>
+            ))}
+            <Form.Item>
+              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
+                Add Phone Number
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
+
       <Form.Item
         name="tags"
         label="Tags"
@@ -71,7 +93,6 @@ const ContactForm = ({ form, onFinish, initialValues }) => {
         </Button>
       </Form.Item>
     </Form>
-    
   );
 };
 

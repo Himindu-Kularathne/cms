@@ -10,11 +10,11 @@ import { Menu } from "antd";
 import  {MenuButtonContext} from "../context/MenuButtonContext";
 
 const items = [
-  {
-    key: "1",
-    icon: <PieChartOutlined />,
-    label: "Dashboard",
-  },
+  // {
+  //   key: "1",
+  //   icon: <PieChartOutlined />,
+  //   label: "Dashboard",
+  // },
   {
     key: "2",
     icon: <DesktopOutlined />,

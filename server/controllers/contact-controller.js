@@ -22,13 +22,17 @@ const getContacts = asyncHandler(async (req, res) => {
       });
     } else {
       res.status(200).json(
-        //to the result we add the tags fetched from the middleware , chech id and assign tags to respective conatct
+        //to the result we add the tags fetched from the middleware , chech id and assign tags to respective conatct . add phones also
         {
           contacts: result.map((contact) => {
             const tags = req.tags.filter(
               (tag) => tag.contact_id === contact.id
             );
+            const phones = req.phones.filter(
+                (phone) => phone.contact_id === contact.id
+            );
             contact.tags = tags.map((tag) => tag.tag);
+            contact.phones = phones.map((phone) => phone.phone_number);
             return contact;
           }),
         }
@@ -113,11 +117,23 @@ const createContact = asyncHandler(async (req, res) => {
 //api/contact/id:1  , put
 const updateContact = asyncHandler(async (req, res) => {
     const id = req.params.contactID;
-    const { first_name, last_name, email, address, tags , phone } = req.body;
+    const { first_name, last_name, email, address, tags , phones } = req.body;
+    //update contact and tags and phones
+    db.query("UPDATE contact SET first_name = ?, last_name = ?, email = ?, address = ? WHERE id = ?", [first_name, last_name, email, address, id], (err, result) => {
+        if (err) {
+            res.status(400).json({
+                message: "error in updating contact",
+            });
+        } else {
+            res.status(201).json({
+                message: "contact is updated",
+                body: result,
+                id: id,
+            });
+        }
+    });
 
-  db.query(
-    
-  );
+
 });
 
 //delete contact
