@@ -1,21 +1,24 @@
 version: "3.8"
 services:
   db:
+    image: mysql:8.1
     build: ./db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: cmsystem
-    restart: always
-  web:
-    build: ./server
-    environment:
-      MYSQL_DATABASE: cmsystem
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_HOST: db
     ports:
-      - "5001:5001"
-    depends_on:
-      - db
-    restart: on-failure
-    
+      - "3307:3306"
+    restart: always
+  # web:
+  #   build: ./server
+  #   environment:
+  #     MYSQL_DATABASE: cmsystem
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_USER: root
+  #     MYSQL_PASSWORD: password
+  #     MYSQL_HOST: db
+  #   ports:
+  #     - "5001:5001"
+  #   depends_on:
+  #     - db
+    # restart: on-failure
