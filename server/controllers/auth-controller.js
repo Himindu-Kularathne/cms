@@ -16,7 +16,7 @@ const loginController = asyncHandler(async (req, res) => {
             console.log("result");
                if (err) {
                   res.status(400).json({
-                     message: "error in fetching user"
+                     message: "hi"
                   })
                } else {
                   console.log(result[0].hashed_password);

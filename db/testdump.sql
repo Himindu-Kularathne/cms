@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS tag (
 -- Insert dummy users
 INSERT INTO user (name, email, phone, hashed_password)
 VALUES 
-('John Doe', 'john@example.com', '1234567890', '$2a$10$KfTi1N7LMeqbgVZs5UdY5uHyFbzD8a68AFw2jP4CG2l6k.zHjNqvK'),  -- password: password123
+('John Doe', 'john@example.com', '1234567890', '$2a$12$1Tmt1snFFJtbPC1esFzlyOEg.P5qMVCGHj5b0sHNehb2IhopCxsZO'),  -- password: password123
 ('Jane Smith', 'jane@example.com', '0987654321', '$2a$10$KfTi1N7LMeqbgVZs5UdY5uHyFbzD8a68AFw2jP4CG2l6k.zHjNqvK'); -- password: password123
 
 -- Insert dummy contacts
