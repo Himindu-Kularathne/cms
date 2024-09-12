@@ -14,7 +14,8 @@ services:
       MYSQL_PASSWORD: password
       MYSQL_HOST: db
     ports:
-      - "5000:5000"
+      - "5001:5001"
     depends_on:
       - db
     restart: on-failure
+    
