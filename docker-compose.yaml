@@ -9,16 +9,16 @@ services:
     ports:
       - "3307:3306"
     restart: always
-  # web:
-  #   build: ./server
-  #   environment:
-  #     MYSQL_DATABASE: cmsystem
-  #     MYSQL_ROOT_PASSWORD: password
-  #     MYSQL_USER: root
-  #     MYSQL_PASSWORD: password
-  #     MYSQL_HOST: db
-  #   ports:
-  #     - "5001:5001"
-  #   depends_on:
-  #     - db
-    # restart: on-failure
+  server:
+    build: ./server
+    environment:
+      MYSQL_DATABASE: cmsystem
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: db
+    ports:
+      - "5001:5001"
+    depends_on:
+      - db
+    restart: on-failure
